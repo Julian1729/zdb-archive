@@ -1,0 +1,27 @@
+{% embed "Includes/Header.html" %}
+  {% block title %}{{title}}{% endblock %}
+{% endembed %}
+
+
+<body><!-- start body tag -->
+
+  <div id="systemWrapper"><!-- start page wrapper div -->
+    <!-- Start Individul Page Content -->
+    {% block content %}
+    {% endblock %}
+    <!-- 100px Spacer -->
+    <div class="spacer100"></div>
+  </div><!-- end page wrapper fiv -->
+
+  <div id="modal-container">
+    {% block modalcontainer %}
+    {% endblock %}
+  </div>
+
+<!-- Javascript -->
+{{include('Includes/Javascript.html')}}
+{% block javascript %}
+{% endblock %}
+
+</body>
+</html>

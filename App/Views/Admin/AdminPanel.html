@@ -1,0 +1,234 @@
+{% extends 'Admin/AppBase.html' %}
+
+{% set title = 'Admin Panel' %}
+
+{% block content %}
+
+  <div class="spacer50"></div>
+
+  <div class="box-wrapper">
+
+  <div class="box">
+    <div class="box-header">
+      <p>Admin Account Settings</p>
+    </div>
+    <div class="box-content">
+
+      <!-- email -->
+      <div class="account-row">
+        <div class="keyvalue">
+          <p>Email</p>
+          <p>{{SESSION.email}}</p>
+        </div>
+        <p class="form-hint">This is the email that is displayed to all congregations.</p>
+        <button class="account-change form-submit-button" type="button" data-modal="email-modal">Change</button>
+      </div>
+
+      <!-- password -->
+      <div class="account-row">
+        <div class="keyvalue">
+          <p>Password</p>
+          <p>Hidden</p>
+        </div>
+        <p class="form-hint">Password used to sign in</p>
+        <button class="account-change form-submit-button" type="button" data-modal="password-modal">Change</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Congregation Settings Box -->
+  <div class="box">
+    <div class="box-header">
+      <p>Congregation Settings</p>
+    </div>
+    <div class="box-content">
+      <form class="" action="{{URI.ADMIN_PANEL}}/congregation-settings" method="GET">
+        {% include 'Includes/CongregationSelectBox.html' %}
+        <button class="form-submit-button">go</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Email SMTP Setting -->
+  <div class="box">
+    <div class="box-header">
+      <p>Email SMTP Settings</p>
+    </div>
+    <div class="box-content">
+      <table>
+        <!-- username -->
+        <tr>
+          <th>Username: </th>
+          <td>{{co.email_username}}</td>
+        </tr>
+        <!-- password -->
+        <tr>
+          <th>Password: </th>
+          <td><i>Hidden</i></td>
+        </tr>
+        <!-- from name -->
+        <tr>
+          <th>From Name: </th>
+          <td>{{co.email_from_name}}</td>
+        </tr>
+        <!-- port -->
+        <tr>
+          <th>Port: </th>
+          <td>{{co.email_port}}</td>
+        </tr>
+        <!-- host -->
+        <tr>
+          <th>Host: </th>
+          <td>{{co.email_host}}</td>
+        </tr>
+      </table>
+
+      <!-- change button -->
+      <button type="button" class="button" data-modal="smtp-modal">Change</button>
+    </div>
+  </div>
+
+</div><!-- end of Box Wrapper -->
+
+{% endblock %}
+
+{% block modalcontainer %}
+  <!-- change email modal -->
+  {% embed 'Includes/Modal.twig' %}
+    {% set id = "email-modal" %}
+    {% set title = 'Change Email' %}
+    {% block content %}
+      <form id="change-email-form">
+        <div class="form-row">
+          <label>{{SESSION.email}}</label>
+          <input type="text" name="email">
+          <button data-formval="submit" class="button">update</button>
+        </div>
+      </form>
+    {% endblock %}
+  {% endembed %}
+
+<!-- change password modal -->
+  {% embed 'Includes/Modal.twig' %}
+    {% set id = "password-modal" %}
+    {% set title = 'Change Password' %}
+    {% block content %}
+    <form id="change-password-form" action="">
+      <div class="form-row">
+        <input name="password" type="password" placeholder="new password"/>
+        <p class="form-hint">Must be more than 6 characters</p>
+      </div>
+      <div class="form-row">
+        <input name="password-confirm" type="password" placeholder="confirm password">
+        <p class="form-hint">Retype Password</p>
+      </div>
+      <button data-formval="submit" class="button">update</button>
+    </form>
+  {% endblock %}
+{% endembed %}
+
+<!-- email smtp setting modal -->
+{% embed 'Includes/Modal.twig' %}
+  {% set id = "smtp-modal" %}
+  {% set title = "Change SMTP Settings" %}
+  {% block content %}
+    <form id="smtp-form">
+      <div class="form-row">
+        <label>Username</label>
+        <input type="text" name="username" value="{{co.email_username}}">
+      </div>
+      <div class="form-row">
+        <label>Password</label>
+        <input type="password" name="password" value="{{co.email_password}}">
+      </div>
+      <div class="form-row">
+        <label>From Name:</label>
+        <input type="text" name="from-name" value="{{co.email_from_name}}">
+      </div>
+      <div class="form-row">
+        <label>Port</label>
+        <input type="number" name="port" value="{{co.email_port}}">
+      </div>
+      <div class="form-row">
+        <label>Host</label>
+        <input type="text" name="host" value="{{co.email_host}}">
+      </div>
+      <button data-formval="submit" type="button" class="button">update</button>
+    </form>
+  {% endblock %}
+{% endembed %}
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+// Init Modal Forms
+function modalCallback(form, response){
+  function close(){
+    var container = findAncestor(form, 'modal');
+    if(container){
+      container.classList.remove('show');
+      // wait 3 seconds, remove overlay
+      setTimeout(function(){
+        modalContainer.classList.remove('show');
+      }, 300);
+
+    }
+  }
+  console.log(response);
+  var r = JSON.parse(response);
+  switch (r.code) {
+    case 1:
+      Notice('positive', 'Setting Updated');
+      close();
+    break;
+    case 0:
+      formvalErrorHandler(form, r.errors);
+    break;
+    case 3:
+      Notice('negative',
+      'No Settings Changed');
+      if(r.errors){
+        formvalErrorHandler(form, r.errors);
+      }else{
+        close();
+      }
+    break;
+  }
+}
+
+// email form
+var emailForm = F('change-email-form', modalCallback,{
+  url: "{{URI.AJAX_URI}}",
+  method: 'POST'
+});
+emailForm.extras({
+  //extras
+  action: 'adminAccountSettings',
+  form: 'email',
+});
+
+// password form
+var passwordForm = F('change-password-form', modalCallback,{
+  url: "{{URI.AJAX_URI}}",
+  method: 'POST'
+});
+passwordForm.extras({
+  //extras
+  action: 'adminAccountSettings',
+  form: 'password',
+});
+
+// SMTP Form
+var smtpForm = F('smtp-form', modalCallback,{
+  url: "{{URI.AJAX_URI}}",
+  method: 'POST'
+});
+smtpForm.extras({
+  //extras
+  action: 'updateSMTP'
+});
+
+</script>
+{% endblock %}

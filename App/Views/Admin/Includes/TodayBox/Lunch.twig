@@ -1,0 +1,29 @@
+{% import 'Includes/Macros.html' as m %}
+
+<div class="box today">
+  <div class="box-header lunch">
+    <p>Lunch</p>
+  </div>
+  <div class="box-content">
+    {% set p = "#{prefix}meal_host_" %}
+    <div class="form-row">
+      <h2>{{m.o(v["#{p}name"])}}</h2>
+    </div>
+    <div class="form-row">
+      <a href="tel:{{v["#{p}phone"]}}">{{m.o(v["#{p}phone"])}}</a>
+    </div>
+    <div class="form-row">
+      {{m.gmapAddress(
+        v["#{prefix}googlemapsUri"],
+        v["#{p}street"],
+        v["#{p}city"],
+        v["#{p}state"],
+        v["#{p}country"],
+        v["#{p}zip"]
+      )}}
+    </div>
+    <div class="form-row">
+      {{m.o(v["#{p}directions"])}}
+    </div>
+  </div>
+</div>

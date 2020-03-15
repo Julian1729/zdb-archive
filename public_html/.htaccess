@@ -1,0 +1,11 @@
+# Remove the question mark from the request but maintain the query string
+RewriteEngine On
+RewriteBase /
+  #Check URL is not a valid file path
+  RewriteCond %{REQUEST_FILENAME} !-f
+  #Check URL is not a valid directory
+  RewriteCond %{REQUEST_FILENAME} !-d
+  #Check URL is not a symbolic link
+  RewriteCond %{REQUEST_FILENAME} !-l
+  #Match all...send to index.php with get param, last (L) and append query string (QSA)
+  RewriteRule ^(.*)$ index.php?$1 [L,QSA]

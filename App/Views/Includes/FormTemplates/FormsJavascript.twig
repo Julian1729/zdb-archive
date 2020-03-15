@@ -1,0 +1,11 @@
+<script>
+
+{# convert visit data to a javascript array #}
+var visitObj = JSON.parse( '{{v|json_encode|escape('js')}}' )
+var columnMap = JSON.parse( '{{ column_map|json_encode|escape('js') }}' );
+
+</script>
+
+<script src="{{URI.ASSETS_URI}}/js/modules/Activity.js"></script>
+<script src="{{URI.ASSETS_URI}}/js/modules/Form.js"></script>
+<script src="{{URI.ASSETS_URI}}/js/modules/FillFormData.js"></script>

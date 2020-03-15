@@ -1,0 +1,9 @@
+<div class="congregation-select-container">
+  <select name="congregation" class="congregation-select">
+    {% for congregation in congregations %}
+      <option value="{{congregation.congregationId}}">
+        {{congregation.name}}
+      </option>
+    {% endfor %}
+  </select>
+</div>

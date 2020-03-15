@@ -1,0 +1,55 @@
+{% extends "Base.html" %}
+
+{% set title = 'Edit Visit' %}
+
+{% import 'Includes/Macros.html' as macro %}
+
+{% block content %}
+
+
+  <div class="spacer25"></div>
+
+  <div class="box-wrapper">
+
+    <div class="visit-info-box">
+
+      <div class="row">
+        <h1 class="anon-name">{{SESSION.name}} Congregation</h1>
+      </div>
+      <div class="row">
+        <small>{{macro.cuteDate(v.startDate)}} - {{macro.cuteDate(v.endDate)}}</small>
+      </div>
+      {% if v.comments %}
+      <div class="row">
+        <p><strong>Darren Zanders: </strong>{{v.comments}}</p>
+      </div>
+      {% endif %}
+      <div class="row">
+        <p class="form-hint">Fill out the form below, once finished, click next to reveal the next form.</p>
+      </div>
+    </div>
+
+    {% include 'Includes/Forms/ServiceForm.twig' %}
+    {% include 'Includes/Forms/MealSchedule.twig' %}
+    {% include 'Includes/Forms/EldersForm.twig' %}
+
+  </div>
+
+{% endblock %}
+
+{% block modalcontainer %}
+  {% embed 'Includes/Modal.twig' %}
+    {% block content %}
+      {% set title = 'Visit Submitted' %}
+      {% set id = 'submit-success-modal' %}
+      <p>Thank you</p>
+      <p>Brother Zanders has received your submission.</p>
+      <div class="button-row">
+        <button id="modal-done-button" class="button" type="button">Done</button>
+      </div>
+    {% endblock %}
+  {% endembed %}
+{% endblock %}
+{% block javascript %}
+<script src="{{URI.ASSETS_URI}}/js/forms.js"></script>
+{% endblock %}

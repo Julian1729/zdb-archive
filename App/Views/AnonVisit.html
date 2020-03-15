@@ -1,0 +1,22 @@
+{% extends "Base.html" %}
+
+{% set title = 'Edit Visit' %}
+
+{% import 'Includes/Macros.html' as macro %}
+
+{% block content %}
+
+  {% include 'Includes/FormTemplates/Content.twig' %}
+
+{% endblock %}
+
+{% block modalcontainer %}
+
+  {% include 'Includes/FormTemplates/ConfirmationModal.twig' %}
+
+{% endblock %}
+{% block javascript %}
+
+  {% include 'Includes/FormTemplates/FormsJavascript.twig' %}
+
+{% endblock %}

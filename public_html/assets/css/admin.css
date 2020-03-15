@@ -1,0 +1,28 @@
+/*
+===============
+Account Settings
+===============
+ */
+.edit-congregation-settings-form{
+	width: 250px;
+	margin: 0 auto;
+}
+
+button#delete-congregation{
+	appearance: none;
+	border: none;
+	background: #FE2A00;
+	padding: 10px 15px;
+	color: white;
+	cursor: pointer;
+}
+
+
+/*
+===============
+View Visit
+===============
+ */
+.activity{
+	margin: 5px 0;
+}

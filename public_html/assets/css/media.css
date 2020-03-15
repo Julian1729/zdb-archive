@@ -1,0 +1,28 @@
+@media screen and (max-width: 500px) {
+
+  /* give boxes a margin */
+  .box-wrapper{
+    width: auto;
+    margin: 0 10px;
+  }
+
+  /* make logo a little smaller */
+  #header-logo{
+    height: 85px;
+    width: 85px;
+  }
+
+  /* have radio groups radio label stack up on top of one another */
+  .radiogroup label{
+    display: block !important;
+    margin-bottom: 5px;
+  }
+
+  /* give notice element a margin, lessen gap on top*/
+  .notice{
+    width: auto;
+    margin: 0 15px;
+    top: 15px;
+  }
+
+}

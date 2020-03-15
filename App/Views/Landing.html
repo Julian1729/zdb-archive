@@ -1,0 +1,24 @@
+{% extends "Base.html" %}
+
+{% set title = 'Zanders DB' %}
+
+{% block content %}
+<div class="spacer50"></div>
+
+  <div class="system-title-container">
+    <h1 class="index-site-title">DARREN ZANDERS</h1>
+    <h2 class="index-site-title muted">Database</h2>
+  </div>
+
+
+  <div class="system-box">
+    <form action="{{ URI.BASE_URI }}/login" method="GET">
+      <p class="label text-center">Congregation</p>
+        {{include('Includes/CongregationSelectBox.html')}}
+      <input class="form-submit-button" type="submit" value="next"/>
+    </form>
+  </div>
+
+  <a id="admin-login-link" href="{{ URI.ADMIN_URI }}">Admin</a>
+
+{% endblock %}

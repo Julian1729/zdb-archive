@@ -1,0 +1,79 @@
+{% extends "Base.html" %}
+
+{% set title = 'Signup' %}
+
+{% block content %}
+
+<div class="spacer50"></div>
+
+{% include('Includes/SystemTitle.html') %}
+
+
+<div class="system-box">
+
+<form id="sign-up-form">
+
+  <p>If you are presented with this page,
+     it means that your congregation has not yet signed up to use
+   this form submission service. </p>
+
+   <p>You can do so below.</p>
+
+  <div class="form-row">
+    <label for="email">E-mail</label>
+    <input name="email" type="email" placeholder="brotherdoe@gmail.com">
+    <p class="form-hint">This email will be used to receive reminders,
+    recover forgotten passwords, and should belong to one of the elders in your body.</p>
+  </div>
+
+  <div class="form-row">
+    <label for="password">Password</label>
+    <input name="password" type="password" maxlength="30"/>
+    <p class="form-hint">Please keep this password on record, and share it with the BOE.</p>
+    <p class="form-hint">Minimum length is 6 characters</p>
+  </div>
+
+  <div class="form-row">
+    <label for="password-confirm">Confirm Password</label>
+    <input name="password-confirm" type="password" maxlength="30"/>
+    <p class="form-hint">Retype Password</p>
+  </div>
+
+  <div class="form-row">
+    <div class="checkbox-container">
+      <input id="bod-checkbox" name="bod-checkbox" type="checkbox"  />
+      <label for="bod-checkbox"></label>
+    </div>
+
+    <span id="bod-checkbox-label">I am part of the body of elders from the {{name}} Congregation</span>
+  </div>
+
+  <input type="submit" data-formval="submit" value="sign up">
+</form>
+
+</div>
+
+{% endblock %}
+{% block javascript %}
+  <script>
+    var signUpForm = F('sign-up-form', function(form, response){
+
+      // response error handler
+      if(response == 1){
+        // successful signup ... redirect to home
+        console.log('good');
+        window.location.href = "{{URI.HOME_URI}}";
+      }else{
+        formvalErrorHandler(form, response);
+      }
+
+    },
+    {
+      url : "{{URI.AJAX_URI}}",
+      method : "POST"
+    });
+    signUpForm.extras({
+      action : 'congregationSignUp'
+    });
+  </script>
+{% endblock %}

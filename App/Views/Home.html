@@ -1,0 +1,30 @@
+{% extends "AppBase.html" %}
+
+{% set title = 'Home' %}
+
+{% import "Includes/Macros.html" as macros %}
+
+{% block content %}
+
+<div class="spacer100"></div>
+
+<div class="box-wrapper">
+
+<div class="box">
+  <div class="box-header">
+    <p>All Visits for {{SESSION.name}} Congregation</p>
+  </div>
+
+  <div id="visits" class="box-content">
+
+    {% for visit in visits %}
+      {{macros.visit( visit.visitId, visit.startDate, visit.endDate, true )}}
+    {% endfor %}
+
+  </div>
+</div>
+
+</div>
+
+
+{% endblock %}

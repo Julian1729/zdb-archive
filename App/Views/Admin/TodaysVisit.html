@@ -1,0 +1,136 @@
+{% extends 'Admin/AppBase.html' %}
+
+{% set title = "#{name} Visit" %}
+
+{% import 'Includes/Macros.html' as macro %}
+
+{% block content %}
+
+<div class="spacer50"></div>
+
+<div class="box-wrapper">
+
+<!-- Standard View Page -->
+<a href="{{macro.adminVisitUrl(v.visitId)}}" class="button more">More</a>
+
+{% if dow == 0 %}
+  <!-- Sunday -->
+  {% set day = 'Sunday' %}
+  {% set prefix = 'sun' %}
+  {# is public talk meeting today? #}
+  {% if v.meetingday_publictalk == day %}
+    {% embed 'Admin/Includes/TodayBox/Meetings.twig' %}
+      {% block content %}
+      <div class="form-row">
+        <p>Public Talk Meeting at {{macro.o(v.meetingtime_publictalk)}}</p>
+      </div>
+      <div class="form-row">
+        <small>Chairman</small>
+        <p>{{macro.o(v.chairman_publictalk)}}</p>
+      </div>
+      <div class="fomr-row">
+        <small>Watchtower Conductor</small>
+        <p>{{macro.o(v.wtconductor)}}</p>
+      </div>
+      {% endblock %}
+    {% endembed %}
+  {% endif %}
+
+  <div class="box">
+    <div class="box-header service">
+      <p>Field Service</p>
+    </div>
+    <div class="box-content">
+      <p>{{macro.o(v.sun_fieldservice_time)}} at {{macro.o(v.sun_fieldservice_location)}}</p>
+    </div>
+  </div>
+
+{% elseif dow == 2 %}
+  {# First day of visit, just output the chairman and time #}
+  {% embed 'Admin/Includes/TodayBox/Meetings.twig' %}
+    {% block content %}
+      <div class="form-row">
+        <p>Life and Ministry Meeting at {{macro.o(v.meetingtime_lifeministry)}}</p>
+      </div>
+      <div class="form-row">
+        <small>Chairman</small>
+        <p>{{macro.o(v.chairman_lifeministry)}}</p>
+      </div>
+    {% endblock %}
+  {% endembed %}
+
+{% elseif dow == 3 %}
+  {% set day = 'Wednesday' %}
+  {% set prefix = 'wed_' %}
+  {% include 'Admin/Includes/TodayBox/FieldService.twig' %}
+  {% include 'Admin/Includes/TodayBox/Lunch.twig' %}
+  {# is the pioneer meeting today? #}
+  {% if pioneermeeting_day == day %}
+  {% embed 'Admin/Includes/TodayBox/Meetings.twig' %}
+    {% block content %}
+      <p>Pioneer Meeting at {{macro.o(v.pioneermeeting_day)}}</p>
+    {% endblock %}
+  {% endembed %}
+  {% endif %}
+
+{% elseif dow == 4 %}
+  {% set day = 'Thursday' %}
+  {% set prefix = 'thurs_' %}
+  {% include 'Admin/Includes/TodayBox/FieldService.twig' %}
+  {% include 'Admin/Includes/TodayBox/Lunch.twig' %}
+
+{% elseif dow == 5 %}
+  {% set day = 'Friday' %}
+  {% set prefix = 'fri_' %}
+  {% include 'Admin/Includes/TodayBox/FieldService.twig' %}
+  {% include 'Admin/Includes/TodayBox/Lunch.twig' %}
+  {% embed 'Admin/Includes/TodayBox/Meetings.twig' %}
+  {% block content %}
+    <p>Elder and MS Meeting at {{macro.o(v.eldermsmeeting_time)}}</p>
+    {% if v.eldersmeetingpoints %}
+      <small>Elders Meeting Requested Points:</small>
+      <p>"{{macro.o(v.eldersmeetingpoints)}}"</p>
+    {% endif %}
+  {% endblock %}
+{% endembed %}
+
+{% elseif dow == 6 %}
+  {% set day = 'Saturday' %}
+  {% set prefix = 'sat_' %}
+  {% include 'Admin/Includes/TodayBox/FieldService.twig' %}
+
+  {# is public talk meeting today? #}
+  {% if v.meetingday_publictalk == day %}
+
+    {% embed 'Admin/Includes/TodayBox/Meetings.twig' %}
+      {% block content %}
+        <p>Public Talk Meeting at {{macro.o(v.meetingtime_publictalk)}}</p>
+        <div class="form-row">
+          <small>Chairman</small>
+          <p>{{macro.o(v.chairman_publictalk)}}</p>
+        </div>
+        {# is pioneer meeting today to? #}
+        {% if v.pioneermeeting_day == day %}
+          <p>Pioneer Meeting at {{macro.o(v.pioneermeeting_day)}}</p>
+        {% endif %}
+      {% endblock %}
+    {% endembed %}
+
+  {% elseif v.pioneermeeting_day == day %}{# pioneer meeting today? #}
+
+  {% embed 'Admin/Includes/TodayBox/Meetings.twig' %}
+    {% block content %}
+      <p>Pioneer Meeting at {{macro.o(v.pioneermeeting_day)}}</p>
+    {% endblock %}
+  {% endembed %}
+
+  {% endif %}
+
+
+{% endif %}
+{% include 'Admin/Includes/TodayBox/Misc.twig' %}
+
+</div>
+<!-- end of wrap div -->
+
+{% endblock %}

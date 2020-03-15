@@ -1,0 +1,91 @@
+<div class="spacer25"></div>
+
+<div class="box-wrapper">
+
+  <div class="visit-info-box">
+
+    {% if not SESSION.authenticated %}
+      <div class="row">
+        <h1 class="anon-name">{{SESSION.name}}
+          Congregation</h1>
+      </div>
+    {% endif %}
+    {% if v.comments %}
+      <div class="row">
+        <p>
+          <strong>Darren Zanders:
+          </strong>{{v.comments}}</p>
+      </div>
+    {% endif %}
+    <!-- Visit Date -->
+    <div class="row">
+      <small>{{macro.cuteDate(v.startDate)}}
+        -
+        {{macro.cuteDate(v.endDate)}}</small>
+    </div>
+    <!-- Help Hint -->
+    <div class="row">
+      <p class="form-hint">Fill out the form below, once finished, click next to reveal the next form.</p>
+    </div>
+  </div>
+
+  {# Include Forms #}
+  {% include 'Includes/Forms/ServiceForm.twig' %}
+  {% include 'Includes/Forms/MealSchedule.twig' %}
+  {% include 'Includes/Forms/EldersForm.twig' %}
+
+</div>
+
+<!-- Brother Activity Template -->
+<script type="text/html" id="brother-activity">
+  {% verbatim %}
+
+  <div class="activity">
+    <div class="form-row radiogroup">
+      <label>Sheperding Call<div class="radiobutton-container"><input type="radio" value="1" name="{{name}}" id="{{rid}}">
+          <label for="{{lid}}"></label>
+        </div>
+      </label>
+      <label>Bible Study<div class="radiobutton-container"><input type="radio" value="2" name="{{name}}" id="{{rid}}">
+          <label for="{{lid}}"></label>
+        </div>
+      </label>
+      <label>Return Visit<div class="radiobutton-container"><input type="radio" value="3" name="{{name}}" id="{{rid}}">
+          <label for="{{lid}}"></label>
+        </div>
+      </label>
+      <span class="ion-close delete-row"></span></div>
+    <div class="form-row hide shepherding-form">
+      <label>Elder</label><input type="text" name="shep_elder">
+      <label>Publisher</label><input type="text" name="shep_publisher">
+      <label>Situation</label>
+      <textarea name="shep_situation"></textarea>
+    </div>
+    <div class="form-row hide publisher-form">
+      <label>Publisher Name</label><input type="text" name="pub_name"></div>
+  </div>
+
+  {% endverbatim %}
+</script>
+
+<!-- Sister Activity Template -->
+<script type="text/html" id="sister-activity">
+
+{% verbatim %}
+  <div class="activity">
+    <div class="form-row radiogroup">
+      <label>Bible Study<div class="radiobutton-container"><input type="radio" value="2" name="{{name}}" id="{{rid}}">
+          <label for="{{lid}}"></label>
+        </div>
+      </label>
+      <label>Return Visit<div class="radiobutton-container"><input type="radio" value="3" name="{{name}}" id="{{rid}}">
+          <label for="{{lid}}"></label>
+        </div>
+      </label>
+      <span class="ion-close delete-row"></span></div>
+    <div class="form-row hide publisher-form">
+      <label>Publisher Name</label><input type="text" name="pub_name"></div>
+  </div>
+{% endverbatim %}
+
+</script>

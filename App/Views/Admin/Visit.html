@@ -1,0 +1,298 @@
+{% extends "Admin/AppBase.html" %}
+
+{% set title = 'View Visit' %}
+
+{% import 'Includes/Macros.html' as macro %}
+
+{% set url = URI.VISIT_ANON_URI ~ '/' ~ v.token %}
+
+{% block content %}
+
+
+{# output_activities : loop through a day's activities and output data #}
+{% macro output_activities(activity_array) %}
+  {# import local macro #}
+  {% import 'Includes/Macros.html' as macro %}
+  {% set activity_count = 0 %}
+  {% for activity in activity_array %}
+    {# output based on type #}
+    {% if activity.type == "sheperding_call" %}
+      {% set activity_count = activity_count + 1 %}
+      <div class="activity">
+        <small>Shepherding Call</small>
+        <p><strong>Elder: </strong>{{macro.o(activity.elder)}}</p>
+        <p><strong>Publisher: </strong>{{macro.o( activity.publisher )}}</p>
+        <p><strong>Situation: </strong></p>
+        <p>{{macro.o( activity.situation )}}</p>
+      </div>
+    {% elseif activity.type == "bible_study" %}
+      {% set activity_count = activity_count + 1 %}
+      <div class="activity">
+        <small>Bible Study</small>
+        <p>{{macro.o( activity.publisher )}}</p>
+      </div>
+    {% elseif activity.type == "return_visit" %}
+      {% set activity_count = activity_count + 1 %}
+      <div class="activity">
+        <small>Return Visit</small>
+        <p>{{macro.o( activity.publisher )}}</p>
+      </div>
+    {% endif %}
+
+  {% endfor %}
+
+  {% if activity_count == 0 %}
+    <small>No Arrangements</small>
+  {% endif %}
+
+{% endmacro %}
+
+{# import macro #}
+{% import _self as this %}
+
+  <div class="spacer50"></div>
+
+<div class="box-wrapper">
+
+
+  <div class="button-row">
+    <button data-modal="visit-url-modal" type="button" class="button positive">Visit URL</button>
+    <button data-modal="delete-visit-modal" type="button" class="button negative">Delete</button>
+  </div>
+
+  {% set triDay = {'wed_' : 'Wednesday', 'thurs_' : 'Thursday', 'fri_' : 'Friday'} %}
+
+  <!-- Meal Schedule -->
+  <div class="box">
+    <div class="box-header">
+      <p>Meal Schedule</p>
+    </div>
+    <div class="box-content">
+      {% for pre, day in triDay %}
+      <div class="row">
+        <h1>{{day}}</h1>
+        <div class="form-row">
+          <p>{{macro.o(v["#{pre}meal_host_name"])}}</p>
+        </div>
+        <div class="form-row">
+          {% set p = "#{pre}meal_host_" %}
+          {{macro.gmapAddress(
+          v["#{pre}googlemapsUri"],
+          v["#{p}street"],
+          v["#{p}city"],
+          v["#{p}state"],
+          v["#{p}country"],
+          v["#{p}zip"]
+          )}}
+        </div>
+
+        <div class="form-row">
+          <p>{{v["#{p}directions"]}}</p>
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Meetings and Locations -->
+  <div class="box">
+    <div class="box-header">
+      <p>Meetings and Locations</p>
+    </div>
+    <div class="box-content">
+      <div class="row">
+        <h1>Our Christian Life and Ministry Meeting</h1>
+        <div class="form-row">
+          <p>Chairman: {{macro.o(v.chairman_lifeministry)}}</p>
+        </div>
+        <div class="form-row">
+          <p>Tuesday at {{macro.o(v.meetingtime_lifeministry)}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <h1>Public Talk Meeting</h1>
+        <div class="form-row">
+          <p>Chairman: {{macro.o(v.chairman_publictalk)}}</p>
+        </div>
+        <div class="form-row">
+          <p>Watchtower Conductor: {{macro.o(v.wtconductor)}}</p>
+        </div>
+        <div class="form-row">
+          <p>{{macro.o(v.meetingday_publictalk)}} at {{macro.o(v.meetingtime_publictalk)}}</p>
+        </div>
+      </div>
+      <div class="form-row">
+        <h1>Field Service Meetings</h1>
+        <table>
+        {% set days = {'Wednesday':'wed', 'Thursday':'thurs', 'Friday':'fri', 'Saturday':'sat', 'Sunday':'sun'} %}
+        {% for d, pre in days %}
+          {% set p = "#{pre}_fieldservice_" %}
+          <tr>
+            <td>{{d}}</td>
+            <td>{{macro.o(v["#{p}location"])}}</td>
+            <td>{{macro.o(v["#{p}time"])}}</td>
+          </tr>
+        {% endfor %}
+        </table>
+      </div>
+      <div class="form-row">
+        <h1>Pioneer Meeting</h1>
+        <p>{{macro.o(v.pioneermeeting_day)}} at {{macro.o(v.pioneermeeting_time)}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Congregation Matters -->
+  <div class="box">
+    <div class="box-header">
+      <p>Congregation Matters</p>
+    </div>
+    <div class="box-content">
+      <div class="row">
+        <h1>Elders Meeting</h1>
+        <div class="form-row">
+          <p>Time: {{macro.o(v.eldermsmeeting_time)}}</p>
+        </div>
+        <div class="form-row">
+          <small>Points to Discuss:</small>
+          <p>{{macro.o(v.eldersmeetingpoints)}}</p>
+        </div>
+      </div>
+      <div class="form-row">
+        <h1>Misc.</h1>
+        <small>Publishers under Judicial Restriction:</small>
+        <p>{{macro.o(v.publisherjudicial)}}</p>
+        <small>Cannot Represent congregation in prayer:</small>
+        <p>{{macro.o(v.publishernoprayer)}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Field Service Schedule -->
+  <div class="box">
+    <div class="box-header">
+      <p>Ministry Schedule</p>
+    </div>
+    <div class="box-content">
+      {% for pre,day in triDay %}
+        <div class="row">
+          <h1>{{day}}</h1>
+          <div class="form-row">
+            <h2>Morning</h2>
+            <div class="form-row">
+              <h3>Darren Zanders</h3>
+
+              {{this.output_activities(v["activities_json"]["#{pre}morn_bro"])}}
+
+            </div>
+            <div class="form-row">
+              <h3>Kimberli Zanders</h3>
+
+              {{this.output_activities(v["activities_json"]["#{pre}morn_sis"])}}
+
+            </div>
+          </div>
+          <div class="form-row">
+            <h2>Afternoon</h2>
+            <div class="form-row">
+              <h3>Darren Zanders</h3>
+
+              {{this.output_activities(v["activities_json"]["#{pre}aft_bro"])}}
+
+            </div>
+            <div class="form-row">
+              <h3>Kimberli Zanders</h3>
+
+              {{this.output_activities(v["activities_json"]["#{pre}aft_sis"])}}
+
+            </div>
+          </div>
+
+
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block modalcontainer %}
+
+  {% embed 'Includes/Modal.twig' %}
+    {% set id = 'delete-visit-modal' %}
+    {% set title = 'Delete Visit' %}
+    {% block content %}
+      <p>Are you sure that you want to delete this visit and all of its info?</p>
+      <div class="button-row">
+        <button id="confirm-visit-delete" class="button positive">Yes</button>
+      </div>
+    {% endblock %}
+  {% endembed %}
+
+  {% embed 'Includes/Modal.twig' %}
+    {% set id = 'visit-url-modal' %}
+    {% set title = 'Visit URL' %}
+    {% block content %}
+      <p>{{url}}</p>
+      <button id="copy-visit-url" class="button" type="button">copy</button>
+    {% endblock %}
+  {% endembed %}
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+// DELETE VISIT BUTTON
+  function deleteVisitCallback(response, params){
+    console.log(response);
+    var r = JSON.parse(response);
+    switch (r.code) {
+      case 1:
+        window.location.href = "{{ADMIN_HOME}}";
+        break;
+      default:
+        Notice('negative', 'Sorry Brother Zanders, I messed up somewhere');
+    }
+  }
+
+  var deleteVisit = document.getElementById('confirm-visit-delete');
+  deleteVisit.onclick = function(){
+    ajaxRequest(
+      "{{URI.AJAX_URI}}",
+      'POST',
+      {
+        visitId : {{v.visitId}},
+        action : 'deleteVisit'
+      },
+      deleteVisitCallback
+    )
+  }
+
+// COPY VISIT URL BUTTON
+var copyUrl = document.getElementById('copy-visit-url');
+copyUrl.onclick = function(){
+  // create textare element
+  var holder = document.createElement('TEXTAREA');
+  // set value to url
+  holder.value = "{{url}}";
+  // enter into dom
+  document.body.appendChild(holder);
+  holder.select();
+  var copy = document.execCommand('copy');
+  if(copy){
+    // close modal
+    closeModal('visit-url-modal');
+    Notice('positive', 'Anonyomous URL copied to clipboard.');
+  }else{
+    Notice('negative', 'Unable to copy to clipboard');
+  }
+  document.body.removeChild(holder);
+}
+
+</script>
+{% endblock %}

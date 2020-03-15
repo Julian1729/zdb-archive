@@ -1,0 +1,9 @@
+{# Outputs a menu item to be used in page header #}
+{% macro menu_item(iconClass, itemName, link) %}
+<a href="{{link}}">
+  <li>
+    <span class="{{iconClass}}"></span>
+    <p>{{itemName}}</p>
+  </li>
+</a>
+{% endmacro %}

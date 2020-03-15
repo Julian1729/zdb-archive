@@ -1,0 +1,189 @@
+{% import 'Includes/Macros.html' as macro %}
+
+<!-- Service Form -->
+<div class="box visit-form-box" id="form1" data-order="1">
+  <div class="box-header">
+    <p>Ministry Schedule <span class="small">(1/3)</span> </p>
+  </div>
+  <div class="box-content">
+    <div class="note">
+      <p>
+        <strong>Please Note:</strong>
+      </p>
+      <p>Morning groups are arranged by Brother Zanders.</p>
+      <p>Bible Studies or Return Visits to be scheduled after 1:30 PM.</p>
+    </div>
+
+    <form for="3" class="visit-form" id="service-form" action="">
+      <!-- ====== Wednesday ====== -->
+      <div class="row">
+        <h1>Wednesday</h1>
+        <div class="row">
+          <h2>Morning</h2>
+          <!-- Wed Morning -->
+          <div class="activity-person">
+            <small>Brother Zanders</small>
+            {{macro.acButton('wed_morn_bro')}}
+            <div class="activity-container" data-group="wed_morn_bro">
+
+            </div>
+          </div>
+
+
+          <div class="activity-person">
+            <small>Sister Zanders</small>
+            {{macro.acButton('wed_morn_sis')}}
+            <div class="activity-container" data-group="wed_morn_sis">
+
+            </div>
+          </div>
+
+
+
+        </div>
+
+          <!-- Wed Afternoon -->
+          <div class="row">
+            <h2>Afternoon</h2>
+
+            <div class="activity-person">
+              <small>Brother Zanders</small>
+              <!-- add activity button -->
+              {{macro.acButton('wed_aft_bro')}}
+              <div class="activity-container" data-group="wed_aft_bro">
+
+              </div>
+            </div>
+
+
+            <div class="activity-person">
+              <small>Sister Zanders</small>
+              <!-- add activity button -->
+              {{macro.acButton('wed_aft_sis')}}
+              <div class="activity-container" data-group="wed_aft_sis">
+
+              </div>
+            </div>
+
+
+          </div>
+          <!-- end of Wed afternoon -->
+        </div>
+        <!-- end of Wednesday -->
+
+        <!-- ===== THURSDAY ===== -->
+        <div class="row">
+          <h1>Thursday</h1>
+          <div class="row">
+            <h2>Morning</h2>
+
+            <div class="activity-person">
+              <small>Brother Zanders</small>
+              {{macro.acButton('thurs_morn_bro')}}
+              <div class="activity-container" data-group="thurs_morn_bro">
+
+              </div>
+            </div>
+
+
+            <div class="activity-person">
+              <small>Sister Zanders</small>
+              {{macro.acButton('thurs_morn_sis')}}
+              <div class="activity-container" data-group="thurs_morn_sis">
+
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="row">
+            <h2>Afternoon</h2>
+
+            <div class="activity-person">
+              <small>Brother Zanders</small>
+              {{macro.acButton('thurs_aft_bro')}}
+              <div class="activity-container" data-group="thurs_aft_bro">
+
+              </div>
+            </div>
+
+
+            <div class="activity-person">
+              <small>Sister Zanders</small>
+              {{macro.acButton('thurs_aft_sis')}}
+              <div class="activity-container" data-group="thurs_aft_sis">
+
+              </div>
+            </div>
+
+
+          </div>
+          <!-- end of Thurs afternoon -->
+        </div>
+        <!-- end of Thursday -->
+
+        <!-- ===== FRIDAY ===== -->
+        <div class="row">
+          <h1>Friday</h1>
+
+          <div class="row">
+            <h2>Morning</h2>
+
+            <div class="activity-person">
+              <small>Brother Zanders</small>
+              {{macro.acButton('fri_morn_bro')}}
+              <div class="activity-container" data-group="fri_morn_bro">
+
+              </div>
+            </div>
+
+            <div class="activity-person">
+              <small>Sister Zanders</small>
+              {{macro.acButton('fri_morn_sis')}}
+              <div class="activity-container" data-group="fri_morn_sis">
+
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="row">
+            <h2>Afternoon</h2>
+
+            <div class="activity-person">
+              <small>Brother Zanders</small>
+              {{macro.acButton('fri_aft_bro')}}
+              <div class="activity-container" data-group="fri_aft_bro">
+
+              </div>
+            </div>
+
+            <div class="activity-person">
+              <small>Sister Zanders</small>
+              {{macro.acButton('fri_aft_sis')}}
+              <div class="activity-container" data-group="fri_aft_sis">
+
+              </div>
+            </div>
+
+
+          </div>
+          <!-- end of Friday afternoon -->
+        </div>
+        <!-- end of Friday -->
+
+        <!-- Hold visit id -->
+        <input type="hidden" name="visitId" value="{{v.visitId}}" />
+
+        <!-- Textarea to hold activity data -->
+        <textarea  id="activity-data-holder" class="hide" name="activities"></textarea>
+
+        <div class="button-row">
+          <button data-action="next" data-formval="submit" type="button" for="1" class="form-submit-button positive">next</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

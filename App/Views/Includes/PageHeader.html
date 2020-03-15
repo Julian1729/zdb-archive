@@ -1,0 +1,23 @@
+<div id="page-header">
+
+  <a href="{{URI.HOME_URI}}">
+    <img id="header-logo" src="{{URI.ASSETS_URI}}/images/logo/zdb_logo.png" alt="DLZ Logo" title="DLZanders.NET">
+  </a>
+
+  <div id="menu-parent">
+    {% if admin %}
+    <p data-text="name">Darren Zanders</p>
+    {% else %}
+    <p data-text="congregation-name">{{user_name}}</p><span>Congregation</span>
+    {% endif %}
+    <span class="ion-ios-arrow-down"></span>
+
+    {% import 'Includes/Macros/Elements.twig' as elements %}
+    <ul id="menu">
+      {% block menu %}
+      {% endblock %}
+    </ul>
+
+  </div>
+
+</div>

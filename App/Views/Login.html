@@ -1,0 +1,82 @@
+{% extends "Base.html" %}
+
+{% set title = 'Congregation Login' %}
+
+{% block content %}
+
+<div class="spacer50"></div>
+
+{% include('Includes/SystemTitle.html') %}
+
+<div class="system-box congregation-login">
+<form id="log-in-form" method="post">
+  <p class="label text-center">{{name}} Congregation</p>
+  <input type="password" name="password-input" placeholder="password"/>
+  <p class="form-error" id="form-error"></p>
+  <button type="button" id="forgot-password-button">We forgot our password</button>
+  <input  class="form-submit-button" data-formval="submit" type="submit" name="submit" value="log in">
+</form>
+</div>
+
+
+<a id="admin-login-link" href="{{URI.ADMIN_URI}}">Admin</a>
+
+{% endblock %}
+{% block javascript %}
+  <script>
+
+  var loginForm = F('log-in-form', function(form, response){
+    console.log(response);
+    var error = form.querySelector('#form-error');
+    if(response == 0){
+      error.innerHTML = 'Invalid Password';
+    }else if (response == 1) {
+      // redirect to congregation home page
+      window.location.href = "{{URI.HOME_URI}}";
+    }
+
+  },
+  {
+    //options
+    url : "{{URI.AJAX_URI}}",
+    method : 'POST'
+  }
+);
+  loginForm.extras({
+    action : 'congregationLogin'
+  });
+
+  // INIT FORGOT PASSWORD BUTTON
+  var fpb = document.getElementById('forgot-password-button');
+  fpb.onclick = function(){
+
+    //disable button
+    this.disabled = true;
+
+    // Send Ajax Email
+    ajaxRequest(
+      "{{URI.AJAX_URI}}",
+      "POST",
+      "action=forgotPassword",
+      function(r){
+        //check for success
+        if(r == 0){
+          //successfull
+          Notice(
+            "positive",
+            "An email has been sent to {{SESSION.email}} with a link to reset your congregation's password. If you are having trouble finding the email, be sure to check your spam folder."
+        );
+        }else{
+          //unsuccesful
+          Notice(
+            "negative",
+            "Sorry, we could not process your request. We have been notified, please try again later."
+          );
+        }
+      }
+    );
+
+  };
+
+  </script>
+{% endblock %}

@@ -1,0 +1,45 @@
+/*
+==========================
+FONTS
+==========================
+*/
+
+/*Lato*/
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,400i,700');
+/*Palatino*/
+@font-face {
+    font-family: 'Palatino';
+    src: url(../fonts/palatino/texgyrepagella-regular.otf);
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Palatino';
+    src: url(../fonts/palatino/texgyrepagella-bold.otf);
+    font-weight: bold;
+}
+/*Helvetica*/
+@font-face {
+    font-family: 'Helvetica';
+    src: url(../fonts/helvetica/HelveticaNeue.ttf);
+    font-weight: normal;;
+}
+/*@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica/HelveticaNeue Thin.ttf');
+    font-weight: 100;
+}
+@font-face {
+    font-family: 'Helvetica';
+    src: url(../fonts/helvetica/HelveticaNeue Light.ttf);
+    font-weight: lighter;
+}*/
+@font-face {
+    font-family: 'Helvetica';
+    src: url(../fonts/helvetica/HelveticaNeueMed.ttf);
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Helvetica';
+    src: url(../fonts/helvetica/HelveticaNeueIt.ttf);
+    font-style: italic;
+}

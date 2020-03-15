@@ -1,0 +1,129 @@
+{% macro notice(id, level, message, params) %}
+  <div id="{{id}}" class="notice {{level}}">
+    <p>{{message}}</p>
+  </div>
+{% endmacro %}
+
+{% macro visit_old(id, startDate, endDate, completed) %}
+  <a href="{{URI.BASE_URI}}/home/visit/{{id}}">
+    <div class="visit">
+      <p class="visit-date">{{startDate}} - {{endDate}}</p>
+      {% if completed %}
+        <div class="visit-completion complete">Completed</div>
+      {% else %}
+        <div class="visit-completion incomplete">Incomplete</div>
+      {% endif %}
+    </div>
+  </a>
+{% endmacro %}
+
+{% macro visit(id, startDate, endDate) %}
+  <a href="{{URI.BASE_URI}}/home/visit/{{id}}">
+    <div class="visit">
+      <p>CO Visit</p>
+      <p class="visit-date">{{startDate}} - {{endDate}}</p>
+    </div>
+  </a>
+{% endmacro %}
+
+{% macro adminVisit_old(url, congregationName, startDate, endDate, completed) %}
+  <a href="{{url}}">
+    <div class="visit">
+      <p class="visit-congregation">{{congregationName}}</p>
+      <p class="visit-date">{{startDate}} - {{endDate}}</p>
+      {% if completed %}
+        <div class="visit-completion complete">Completed</div>
+      {% else %}
+        <div class="visit-completion incomplete">Incomplete</div>
+      {% endif %}
+    </div>
+  </a>
+{% endmacro %}
+
+{% macro adminVisit(url, congregationName, startDate, endDate, completed) %}
+  <a href="{{url}}">
+    <div class="visit">
+      <p class="visit-congregation">{{congregationName}}</p>
+      <p class="visit-date">{{startDate}} - {{endDate}}</p>
+    </div>
+  </a>
+{% endmacro %}
+
+{% macro checkbox(params = {}) %}
+<div class="checkbox-container">
+  <input
+  {% for key, value in params %}
+    {{key}} = "{{value}}"
+  {% endfor %}
+  type="checkbox">
+  {% if params.id %}
+    {% set id = params.id %}
+  {% endif %}
+  <label for="{{id}}"></label>
+</div>
+{% endmacro %}
+
+
+{% macro radiobutton(params = {}) %}
+<div class="radiobutton-container">
+  <input
+  {% for key, val in params %}
+    {{key}} = "{{val}}"
+  {% endfor %}
+  type="radio">
+  {% if params.id %}
+    {% set id = params.id %}
+  {% endif %}
+  <label for="{{id}}"></label>
+</div>
+{% endmacro %}
+
+{% macro requiredNotes() %}
+  <div class="note">
+    <p>The asterisk (*) denotes a required field</p>
+  </div>
+{% endmacro %}
+
+{% macro adminVisitUrl(id) %}
+{{URI.BASE_URI}}/admin/visits/view/{{id}}
+{% endmacro %}
+
+{% macro adminTodayVisitUrl(id) %}
+{{URI.BASE_URI}}/admin/visits/today/{{id}}
+{% endmacro %}
+
+{# output a date formatted as MM/DD #}
+{% macro cuteDate(date) %}
+{{date|date("F d, Y")}}
+{% endmacro %}
+
+<!-- HTML Elements -->
+{% macro tel(number) %}
+<a href="tel:{{number}}">number</a>
+{% endmacro %}
+
+{% macro gmapAddress(url, street, city, state, country, zip) %}
+  {% if street and city %}
+    <a target="_blank" href="{{url}}">
+  {% endif %}
+    <address>
+      {{street|e}} <br>
+      {{city|e}}, {{state|e}}<br>
+      {{country|e}} {{zip|e}}
+    </address>
+  {% if street and city %}
+    </a>
+  {% endif %}
+{% endmacro %}
+
+{% macro o(string) %}
+  {% if string %}
+    {{string|e}}
+  {% else %}
+    <span class="empty-row">---</span>
+  {% endif %}
+{% endmacro %}
+
+{% macro acButton(group) %}
+<p class="ac add-activity-button" data-group="{{group}}"><span class="ion-plus"></span>&nbsp;Add Activity</p>
+{% endmacro %}

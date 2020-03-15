@@ -1,0 +1,12 @@
+{% embed "Includes/Header.html" %}
+  {% block title %}{{title}}{% endblock %}
+{% endembed %}
+    <div id="error-page">
+      <div>
+        <small><strong>{{title|default('Sorry')}}</strong></small>
+        <p>{{message}}</p>
+        <a href="{{URI.BASE_URI}}/login">Home</a>
+      </div>
+    </div>
+  </body>
+</html>

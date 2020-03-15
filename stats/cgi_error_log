@@ -1,0 +1,44 @@
+20180313T111615: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111622: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111623: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111628: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111628: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111630: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111630: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111633: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111633: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111643: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+
+20180313T111643: dlzanders.net/public_html/index.php
+PHP Warning:  require_once(../vendor/autoload.php): failed to open stream: No such file or directory in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+PHP Fatal error:  require_once(): Failed opening required '../vendor/autoload.php' (include_path='.:/usr/local/lib/php-7.1.1-precise/lib/php') in /hermes/bosnaweb23a/b1000/ipg.dlzandersnet/public_html/index.php on line 11
+

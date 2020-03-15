@@ -1,0 +1,151 @@
+{% import 'Includes/Macros.html' as macro %}
+
+<!-- Elders Form -->
+<div class="box visit-form-box right hide" id="form3" data-order="3">
+
+  <div class="box-header">
+    <p>Body Of Elders <span class="small">(3/3)</span></p>
+  </div>
+
+  <div class="box-content">
+
+    <div class="note">
+      <p><strong>Please Note:</strong></p>
+      <p>Circuit Overseers review the congregation records at their own homes or privately in the Kingdom Hall. Therefore, it is no longer necessary for the local brothers to rearrange their schedules to be at the Kingdom Hall Tuesday afternoon at 1:00 PM. Thus, the circuit overseer can meet with the coordinator or another local elder at some point before the Tuesday evening meeting to discuss any questions he may have regarding his review of the records.
+</p>
+    </div>
+
+    <form for="2" class="visit-form" id="elders-form" action="">
+      <div class="form-row">
+        <h1>Chairmans</h1>
+
+        <div class="form-row required">
+          <label for="">Name of the Chairman for the <i>Our Christian Life and Ministry Meeting</i></label>
+          <input type="text" name="e1" value="">
+        </div>
+
+        <div class="form-row required">
+          <label for="">Name of the Chairman for <i>Public Talk Meeting</i></label>
+          <input type="text" name="e2" value="">
+        </div>
+
+        <div class="form-row required">
+          <label for="">Name of the Watchtower Conductor</label>
+          <input type="text" name="e_add_1" value="">
+        </div>
+
+      </div>
+
+      <div class="row">
+        <h1>Meeting Times and Locations</h1>
+
+        <div class="form-row required">
+          <label for="">Our Christian Life and Ministry Meeting</label>
+          <input placeholder="location" type="text" name="e3" value="">
+        </div>
+
+        <div class="form-row required">
+          <label for="">Public Talk and Watchtower Study Meeting</label>
+          <input class="half" placeholder="day" type="text" name="e4" value=""><input class="half" placeholder="time" type="text" name="e5" value="">
+        </div>
+
+        <div class="form-row required">
+          <label>Wednesday - Friday Field Service Meetings</label>
+
+          <div class="form-row">
+            <small>Wednesday</small>
+            <input class="half" placeholder="location" type="text" name="e6" value=""><input class="half" placeholder="time" type="text" name="e7" value="">
+          </div>
+
+          <div class="form-row">
+            <small>Thursday</small>
+            <input class="half" placeholder="location" type="text" name="e8" value=""><input class="half" placeholder="time" type="text" name="e9" value="">
+          </div>
+
+          <div class="form-row">
+            <small>Friday</small>
+            <input class="half" placeholder="location" type="text" name="e10" value=""><input class="half" placeholder="time" type="text" name="e11" value="">
+          </div>
+
+        </div>
+
+        <div class="form-row required">
+          <label for="">Saturday and Sunday Field Service Meetings</label>
+
+          <div class="form-row">
+            <small>Saturday</small>
+            <input class="half" placeholder="location" type="text" name="e12" value=""><input class="half" placeholder="time" type="text" name="e13" value="">
+          </div>
+
+          <div class="form-row">
+            <small>Sunday</small>
+            <input class="half" placeholder="location" type="text" name="e14" value=""><input class="half" placeholder="time" type="text" name="e15" value="">
+          </div>
+
+        </div>
+
+        <div class="form-row">
+          <label for="">Regular and Aux. Pioneer Meeting</label>
+          <p class="form-hint">Wednesday Evening or Saturday Afternoon</p>
+          <p class="form-hint">Please be sure that all Regular and Auxiliary Pioneers are informed of this meeting.</p>
+
+          <div class="form-row radiogroup">
+            {% set name = 'e16' %}
+            <label>
+              Wednesday
+              {{macro.radiobutton({'id' : 'er1', 'name' : name, 'value' : 'Wednesday'})}}
+            </label>
+            <label>
+              Saturday
+              {{macro.radiobutton({'id' : 'er2', 'name' : name, 'value' : 'Saturday'})}}
+            </label>
+          </div>
+
+          <input placeholder="time" type="text" name="e17" value="">
+        </div>
+
+        <div class="form-row required">
+          <label for="">Elders and Ministerial Servants Meeting</label>
+
+          <div class="sub-row">
+            <p class="inline">Friday</p>
+            <input class="half" placeholder="time" type="text" name="e18" value="">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <h1>Congregation Matters</h1>
+
+        <div class="form-row">
+          <label for="">Provide any points you would like to include in the Elders' meeting agenda</label>
+          <textarea name="e19" rows="8" cols="30"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label for="">Are there any publishers under judicial restrictions?</label>
+          <p class="form-hint">Is their spiritual progress being monitored closely? See ks10 7:19</p>
+          <textarea name="e20" rows="8" cols="30"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label for="">Are there any brothers restricted from representing the congregation in prayer?</label>
+          <textarea name="e21" rows="8" cols="30"></textarea>
+        </div>
+
+      </div>
+
+      <input type="hidden" name="visitId" value="<?php echo $vId; ?>">
+      <input type="hidden" name="form" value="elders">
+
+      <!-- Hold visit id -->
+      <input type="hidden" name="visitId" value="{{v.visitId}}" />
+
+      <div class="button-row">
+        <button data-action="back" type="button" for="3" class="form-submit-button">back</button>
+        <button data-action="submit" data-formval="submit" type="button" for="3" class="form-submit-button positive">submit</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+{% import 'Includes/Macros.html' as macro %}
+
+{# output_activities : loop through a day's activities and output data #}
+{% macro output_activities(activity_array) %}
+  {# import local macro #}
+  {% import 'Includes/Macros.html' as macro %}
+  {% set activity_count = 0 %}
+  {% for activity in activity_array %}
+    {# output based on type #}
+    {% if activity.type == "sheperding_call" %}
+      {% set activity_count = activity_count + 1 %}
+      <div class="activity">
+        <small>Shepherding Call</small>
+        <p><strong>Elder: </strong>{{macro.o(activity.elder)}}</p>
+        <p><strong>Publisher: </strong>{{macro.o( activity.publisher )}}</p>
+        <p><strong>Situation: </strong></p>
+        <p>{{macro.o( activity.situation )}}</p>
+      </div>
+    {% elseif activity.type == "bible_study" %}
+      {% set activity_count = activity_count + 1 %}
+      <div class="activity">
+        <small>Bible Study</small>
+        <p>{{macro.o( activity.publisher )}}</p>
+      </div>
+    {% elseif activity.type == "return_visit" %}
+      {% set activity_count = activity_count + 1 %}
+      <div class="activity">
+        <small>Return Visit</small>
+        <p>{{macro.o( activity.publisher )}}</p>
+      </div>
+    {% endif %}
+
+  {% endfor %}
+
+  {% if activity_count == 0 %}
+    <small>No Arrangements</small>
+  {% endif %}
+
+{% endmacro %}
+{% import _self as this %}
+
+<div class="box today">
+  <div class="box-header service">
+    <p>Field Service Schedule</p>
+  </div>
+  <div class="box-content">
+    <div class="row">
+      <div class="form-row">
+        <small>Location</small>
+        <p>{{macro.o(v["#{prefix}fieldservice_location"])}}</p>
+      </div>
+      <div class="form-row">
+        <small>Time</small>
+        <p>{{macro.o(v["#{prefix}fieldservice_time"])}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <h2>Morning</h2>
+      <div class="form-row">
+        <small>Darren Zanders</small>
+        {{this.output_activities(v["activities_json"]["#{prefix}morn_bro"])}}
+      </div>
+
+      <div class="form-row">
+        <small>Kimberli Zanders</small>
+        {{this.output_activities(v["activities_json"]["#{prefix}morn_sis"])}}
+      </div>
+
+    </div>
+    <div class="row">
+      <h2>Afternoon</h2>
+      <div class="form-row">
+        <small>Darren Zanders</small>
+        {{this.output_activities(v["activities_json"]["#{prefix}aft_bro"])}}
+
+      </div>
+      <div class="form-row">
+        <small>Kimberli Zanders</small>
+        {{this.output_activities(v["activities_json"]["#{prefix}aft_sis"])}}
+
+      </div>
+    </div>
+  </div>
+</div>

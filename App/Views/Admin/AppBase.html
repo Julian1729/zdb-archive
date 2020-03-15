@@ -1,0 +1,38 @@
+{% embed "Includes/Header.html" %}
+  {% block title %}{{title}}{% endblock %}
+{% endembed %}
+
+
+<body><!-- start body tag -->
+
+  {% embed "Includes/PageHeader.html" with {'admin' : true} %}
+    {% block menu %}
+    {{elements.menu_item('ion-ios-home', 'Home', "#{URI.HOME_URI}")}}
+    {{elements.menu_item('ion-gear-b', 'Admin Panel', "#{URI.ADMIN_URI}/admin-panel")}}
+    {{elements.menu_item('ion-log-out', 'Logout', "#{URI.BASE_URI}/?logout=true")}}
+    {% endblock %}
+  {% endembed %}
+
+  <div id="pageWrapper">
+    <!-- start page wrapper div -->
+    <!-- Start Individul Page Content -->
+    {% block content %}
+    {% endblock %}
+    <!-- 100px Spacer -->
+    <div class="spacer100"></div>
+
+  </div>
+  <!-- end page wrapper fiv -->
+
+<div id="modal-container">
+  {% block modalcontainer %}
+  {% endblock %}
+</div>
+
+<!-- Javascript -->
+{{include('Includes/Javascript.html')}}
+{% block javascript %}
+{% endblock %}
+
+</body>
+</html>

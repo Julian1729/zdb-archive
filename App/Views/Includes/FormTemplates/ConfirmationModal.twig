@@ -1,0 +1,11 @@
+{% embed 'Includes/Modal.twig' %}
+  {% set title = 'Visit Submitted' %}
+  {% set id = 'submit-success-modal' %}
+  {% block content %}
+    <p>Thank you</p>
+    <p>Brother Zanders has received your submission.</p>
+    <div class="button-row">
+      <button id="modal-done-button" class="button" type="button">Done</button>
+    </div>
+  {% endblock %}
+{% endembed %}

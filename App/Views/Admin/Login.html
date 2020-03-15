@@ -1,0 +1,50 @@
+{% extends "Base.html" %}
+
+{% set title = 'Admin Login' %}
+
+{% block content %}
+
+  <div class="spacer50"></div>
+
+  <div class="system-box">
+    <form id="admin-login" method="post">
+      <p class="label text-center">Darren Zanders</p>
+      <input type="password" name="password" placeholder="password"/>
+      <input  class="form-submit-button" data-formval="submit" type="submit" name="submit" value="log in">
+    </form>
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+  // INIT Form
+  var adminLogin = F('admin-login', function(form, response){
+    console.log(response);
+    var r = JSON.parse(response);
+    switch (r.code) {
+      case 1:
+        // successful login...redirect to admin home
+        window.location.href = "{{URI.ADMIN_HOME}}";
+        break;
+      case 0:
+        // unsuccesful login..show errors
+        formvalErrorHandler(form, r.errors);
+        break;
+      case 3:
+        Notice('negative', 'Sorry Bro Zanders. I messed up somewhere, I\'ve been notified through email.');
+        break;
+      default:
+
+    }
+  },{
+    url : "{{URI.AJAX_URI}}",
+    method : 'POST'
+  });
+  adminLogin.extras({
+    action : 'adminLogin'
+  });
+
+</script>
+{% endblock %}

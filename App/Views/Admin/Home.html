@@ -1,0 +1,137 @@
+{% extends 'Admin/AppBase.html' %}
+
+{% set title = 'ZDB Admin' %}
+
+{% import 'Includes/Macros.html' as macro %}
+
+{% block content %}
+
+<!-- <div id="foo" class="dropper positive show">
+  <div class="ion-ios-close-empty close-button"></div>
+  <p>THis is the message</p>
+</div> -->
+
+{# display current visit if there is one #}
+{% if currentVisit %}
+  <div id="current-visit">
+    <div class="inner">
+      <p>Current Visit</p>
+      <p>{{currentVisit.name}} Congregation</p>
+      <p>{{currentVisit.startDate}} - {{currentVisit.endDate}}</p>
+      <a href="{{macro.adminTodayVisitUrl(currentVisit.visitId)}}">more info</a>
+    </div>
+  </div>
+{% endif %}
+  <div class="spacer50"></div>
+
+  <div class="box-wrapper">
+
+    <div class="box">
+      <div class="box-header admin">
+        <p>All Visits</p>
+        <div class="header-add-button">
+          <img id="add-visit" data-modal="add-visit-modal" src="{{URI.ASSETS_URI}}/images/icons/add.svg" />
+        </div>
+      </div>
+      <div id="visit-list" class="box-content">
+
+        {% for v in visit %}
+          <!-- build url -->
+          {% set url = "#{URI.ADMIN_URI}/visits/view/#{v.visitId}" %}
+          {{macro.adminVisit(url, v.name, v.startDate, v.endDate, true)}}
+        {% endfor %}
+
+      </div>
+    </div>
+
+  </div><!-- box wrapper -->
+
+
+
+{% endblock %}
+{% block modalcontainer %}
+
+  {% embed 'Includes/Modal.twig' %}
+    {% set id = 'add-visit-modal' %}
+    {% set title = 'Add Visit' %}
+    {% block content %}
+      <form id="add-visit-form">
+        <div class="form-row">
+          <input type="date" name="start-date" placeholder="YYYY-MM-DD">
+        </div>
+        <div class="form-row">
+          <input type="date" name="end-date" placeholder="YYYY-MM-DD">
+        </div>
+        <div class="form-row">
+          {% include 'Includes/CongregationSelectBox.html' %}
+        </div>
+        <div class="form-row">
+          <textarea name="comments" rows="8" cols="80" placeholder="comments"></textarea>
+        </div>
+        <button type-"button" data-formval="submit" class="form-submit-button">add visit</button>
+      </form>
+    {% endblock %}
+  {% endembed %}
+
+{% endblock %}
+{% block javascript %}
+<script>
+
+  var addVisit = F('add-visit-form', function(form, response){
+
+    function close(){
+      var container = findAncestor(form, 'modal');
+      if(container){
+        container.classList.remove('show');
+        // wait 3 seconds, remove overlay
+        setTimeout(function(){
+          modalContainer.classList.remove('show');
+        }, 300);
+
+      }
+    }
+    var r = JSON.parse(response);
+    switch (r.code) {
+      case 1:
+        close();
+        Dropper('Visit added for ' + r.name + ' Congregation', 'positive');
+        // refresh visit list
+        ajaxRequest(
+          "{{URI.AJAX_URI}}",
+          'POST',
+          {
+            action : 'refreshVisitList'
+          },
+          function(response){
+            console.log(response);
+            var r = JSON.parse(response);
+            if (r.code === 1) {
+              document.getElementById('visit-list').innerHTML = r.html;
+            }else{
+              Notice('negative', 'Unable to refresh visit list');
+            }
+          }
+        );
+        break;
+      case 0:
+        formvalErrorHandler(form, r.errors);
+        break;
+      case 3:
+        close();
+        Notice('negative', 'Sorry, Brother Zanders, I messed up somewhere. I\'ve been informed through email.' );
+        break;
+      default:
+        close();
+        Notice('negative', 'Sorry, Brother Zanders, I messed up somewhere.');
+    }
+  },
+  {
+    method : 'POST',
+    url : "{{URI.AJAX_URI}}"
+  });
+  addVisit.extras({
+    action : 'addVisit'
+  });
+
+</script>
+{% endblock %}

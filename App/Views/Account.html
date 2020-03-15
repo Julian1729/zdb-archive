@@ -1,0 +1,198 @@
+{% extends "AppBase.html" %}
+
+{% set title = "Account Settings" %}
+
+{% import "Includes/Macros.html" as macro %}
+
+{% block content %}
+
+<div class="spacer50"></div>
+
+<div class="box-wrapper">
+
+<div class="box">
+
+  <div class="box-header">
+    <p>{{SESSION.name}} Account Settings</p>
+  </div>
+  <div class="box-content">
+
+    <!-- email -->
+    <div class="account-row">
+      <div class="keyvalue">
+        <p>Email</p>
+        <p data-text="email">{{SESSION.email}}</p>
+      </div>
+      <p class="form-hint">This email is used to receive reminders, recover forgotten passwords, and should belong to one of elders in your body.</p>
+      <button class="account-change form-submit-button" type="button" data-modal="email-modal">Change</button>
+    </div>
+
+    <!-- password -->
+    <div class="account-row">
+      <div class="keyvalue">
+        <p>Password</p>
+        <p>Hidden</p>
+      </div>
+      <p class="form-hint">Please keep this password on record and share it with the BOE.</p>
+      <button class="account-change form-submit-button" type="button" data-modal="password-modal">Change</button>
+    </div>
+
+    <div class="account-row">
+      <div class="keyvalue">
+        <p>Congregation Name</p>
+        <p data-text="congregation-name">{{SESSION.name}}</p>
+      </div>
+      <p class="form-hint">Did your congregation name change?</p>
+      <button class="account-change form-submit-button" type="button" data-modal="name-modal">Change</button>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+{% endblock %}
+
+{% block modalcontainer %}
+
+  {% embed 'Includes/Modal.twig' %}
+    {% set id = 'email-modal' %}
+    {% set title = 'Change Email' %}
+    {% block content %}
+      <form id="change-email-form" action="">
+        <div class="form-row">
+          <p data-text="email" class="label"></p>
+          <input type="text" name="email" placeholder="new email"/>
+        </div>
+        <button data-formval="submit" class="form-submit-button">update</button>
+      </form>
+    {% endblock %}
+  {% endembed %}
+
+  {% embed 'Includes/Modal.twig' %}
+    {% set id = 'password-modal' %}
+    {% set title = 'Change Password' %}
+    {% block content %}
+    <form id="change-password-form" action="">
+      <div class="form-row">
+        <input name="password" type="password" placeholder="new password"/>
+        <p class="form-hint">Must be more than 6 characters</p>
+      </div>
+      <div class="form-row">
+        <input name="password-confirm" type="password" placeholder="confirm password">
+        <p class="form-hint">Retype Password</p>
+      </div>
+      <button data-formval="submit" class="form-submit-button">update</button>
+    </form>
+    {% endblock %}
+  {% endembed %}
+
+  {% embed 'Includes/Modal.twig' %}
+    {% set id = 'name-modal' %}
+    {% set title = 'Change Congregation Name' %}
+    {% block content %}
+    <form id="change-name-form" action="">
+      <div class="form-row">
+        <label data-text="congregation-name">{{SESSION.name}}</label>
+        <input name="name" type="text" placeholder="new congregation name"/>
+      </div>
+      <input type="hidden" name="action" value="change-name">
+      <button data-formval="submit" class="form-submit-button">update</button>
+    </form>
+    {% endblock %}
+  {% endembed %}
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+  // Init Modal Forms
+  function modalCallback(form, response){
+    function close(){
+      var container = findAncestor(form, 'modal');
+      if(container){
+        container.classList.remove('show');
+        // wait 3 seconds, remove overlay
+        setTimeout(function(){
+          modalContainer.classList.remove('show');
+        }, 300);
+
+      }
+    }
+
+    var r = JSON.parse(response);
+    switch (r.code) {
+      case 1:
+        var message = '';
+        switch (r.setting) {
+          case 'password':
+            message = 'Password changed';
+            break;
+          case 'email':
+            message = 'Congregation email updated to ' + r.value;
+            setDataText('email', r.value);
+            break;
+          case 'name':
+            message = 'Congregation name updated to ' + r.value + ' Congregation';
+            setDataText('congregation-name', r.value);
+            break;
+          default:
+            message = 'Settings updated'
+        }
+        Notice('positive', message);
+        close();
+      break;
+
+      case 0:
+        formvalErrorHandler(form, r.errors);
+      break;
+
+      case 3:
+        Notice('negative',
+        'Sorry we could not process your request at this time. Please try again later.');
+        if(r.errors){
+          formvalErrorHandler(form, r.errors);
+        }else{
+          close();
+        }
+      break;
+    }
+  }
+
+    // email form
+    var emailForm = F('change-email-form', modalCallback,{
+      url: "{{URI.AJAX_URI}}",
+      method: 'POST'
+    });
+    emailForm.extras({
+      //extras
+      action: 'congregationAccountSettings',
+      form: 'email'
+    });
+
+    // password form
+    var passwordForm = F('change-password-form', modalCallback,{
+      url: "{{URI.AJAX_URI}}",
+      method: 'POST'
+    });
+    passwordForm.extras({
+      //extras
+      action: 'congregationAccountSettings',
+      form: 'password'
+    });
+
+    // congregation name form
+    var nameForm = F('change-name-form', modalCallback,{
+      url: "{{URI.AJAX_URI}}",
+      method: 'POST'
+    });
+    nameForm.extras({
+      //extras
+      action: 'congregationAccountSettings',
+      form: 'name'
+    });
+
+</script>
+{% endblock %}

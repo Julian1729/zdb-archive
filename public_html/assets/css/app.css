@@ -1,0 +1,478 @@
+*{
+  box-sizing: border-box !important;
+}
+
+html, body{
+  height: 100%;
+	min-height: 100%;
+  font-family: 'lato', serif;
+	-webkit-font-smoothing: antialiased;
+	-webkit-overflow-scrolling: touch;
+}
+
+
+
+
+/*
+==========================
+General
+==========================
+*/
+.display{
+  display: block;
+}
+
+.hide{
+  display: none !important;
+}
+
+.muted{
+  color: #777;
+}
+
+.small{
+	font-size: 0.8em;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.spacer100{
+  height: 100px;
+	clear: both;
+}
+
+.spacer50{
+  height: 50px;
+  clear: both;
+}
+
+.spacer25{
+  height: 25px;
+  clear: both;
+}
+
+.row{
+  margin-bottom: 10px;
+}
+
+/*General Text*/
+ .box h1{
+  font-weight: bold;
+  position: relative;
+	margin-bottom: 10px;
+}
+  .box h1::after{
+    content: '';
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    background: #6897bb;
+  }
+.box h2{
+  margin: 5px 0;
+  font-size: 1.2em;
+}
+
+.box h3{
+  margin: 5px 0;
+  font-size: 1.0em;
+  color: #777;
+}
+
+/*
+==========================
+Page Wrapper setup
+==========================
+*/
+#pageWrapper{
+  min-height: 100%;
+  background: #F2F1EF;
+}
+
+/*
+==========================
+Box Wrapper
+==========================
+*/
+.box-wrapper{
+  height: 100%;
+  min-height: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/*
+==========================
+Error Page
+==========================
+*/
+#error-page{
+	background: #F2F1EF;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+	#error-page h1{
+		font-weight: bold;
+	}
+	#error-page p{
+		font-size: 2em;
+		margin: 10px 0;
+	}
+	#error-page a{
+		color: #486EA2;
+		text-decoration: none;
+		font-weight: bold;
+	}
+		#error-page a:hover{
+			text-decoration: underline;
+		}
+
+/*
+==========================
+System Pages
+==========================
+*/
+#systemWrapper{
+  background: #F2F1EF;
+	height: auto;
+	min-height: 100%;
+}
+
+.system-title-container{
+  text-align: center;
+}
+
+#admin-login-link{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+	font-size: 0.9em;
+  border-bottom: 1px inherit solid;
+  color: #888;
+	font-weight: bold;
+}
+
+/*
+==========================
+Congregation Login Page
+==========================
+*/
+#forgot-password-button{
+  /*styled to look like a link*/
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-size: 0.8em;
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline;
+  margin-left: 14px;
+}
+
+.congregation-login.system-box .form-submit-button{
+  display: inline;
+}
+
+/*
+==========================
+Sign-Up Page
+==========================
+*/
+#bod-checkbox-label{
+  /*float: left;*/
+  display: inline-block;
+	width: 225px;
+	vertical-align: top;
+}
+
+#sign-up-form p{
+  margin-bottom: 10px;
+}
+
+/*
+==========================
+Anonymous Visit Page
+==========================
+*/
+
+.visit-info-box{
+  margin-bottom: 25px;
+}
+
+/*
+==========================
+Page Header
+==========================
+*/
+#page-header{
+  height: 75px;
+  background: #DADADA;
+  position: relative;
+  line-height: 75px;
+}
+
+#page-header a{
+	color: inherit;
+	text-decoration: none;
+}
+#page-header .system-title-container{
+	width: 250px;
+	text-align: left;
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}
+
+#header-logo{
+  height: 100px;
+  width: 100px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+  margin-left: 10px;
+}
+
+/*Menu*/
+#menu-parent{
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  bottom: 0;
+  margin: auto 0;
+  height: 40px;
+  background: white;
+  /*box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.4);*/
+  padding: 6px 25px;
+  cursor: pointer;
+  line-height: 20px;
+  min-width: 125px;
+	z-index: 999;
+	font-weight: bold;
+}
+  #menu-parent p, #menu-parent span{
+    display: inline-block;
+    font-size: 0.8em;
+    margin-top: 5px;
+  }
+  #menu-parent p{
+    margin-right: 5px;
+  }
+#menu{
+  position: absolute;
+  top: 0;
+  right: 0;
+  box-shadow: 0px 5px 12px 0 rgba(0, 0, 0, 0.5);
+  width: 100%;
+  min-width: 200px;
+  /* reset padding */
+  margin: 0;
+  padding: 0;
+
+  transition: all 0.4s;
+	/* transform-origin: right top; */
+	opacity: 0;
+	display: none;
+	transform: rotate(90deg);
+
+  list-style: none;
+}
+  #menu.show{
+    display: block;
+    animation: menu-drop 0.3s ease-in-out forwards;
+  }
+
+  #menu a{
+    /* padding: 5px 7px; */
+    text-decoration: none;
+    color: #666;
+  }
+
+  @keyframes menu-show {
+    0%{
+      transform: rotate(90deg);
+			opacity: 0;
+    }
+		99%{
+			opacity: 1;
+		}
+    100%{
+			transform: none;
+			opacity: 1;
+		}
+  }
+
+  @keyframes menu-drop {
+    0%{
+      opacity: 0;
+      transform: translateY(0);
+    }
+    75%{
+      opacity: 1;
+      transform: translateY(50px);
+    }
+    100%{
+      opacity: 1;
+      transform: translateY(40px);
+    }
+  }
+
+  #menu li{
+    /* padding: 5px 7px; */
+    /* box-shadow: inset 0 -1px 0px #888; */
+    box-shadow: inset 0 3px 0px #666;
+    background: white;
+		z-index: 999;
+    width: 100%;
+  }
+  /* icon */
+  #menu li span{
+    color: white;
+    font-size: 0.8em;
+    height: 100%;
+    width: 30px;
+    text-align: center;
+    background: #666;
+    margin: 0;
+    padding: 10px 0;
+  }
+  /* item name */
+  #menu li p{
+
+    margin: 0 0 0 5px;
+    font-weight: lighter;
+  }
+
+
+
+/*
+============
+ADMIN PAGES
+============
+ */
+
+.header-add-button{
+	font-size: 1.5em;
+	position: absolute;
+	border: none;
+	background: none;
+	right: 10px;
+	top: 0;
+	outline: none;
+	cursor: pointer;
+}
+
+/*current visit*/
+#current-visit{
+  height: 250px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(../images/bg.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  .inner{
+    text-align: center;
+    margin: 0 auto 15px !important;
+    font-family: 'Palatino', serif;
+  }
+
+    .inner p:nth-child(1){
+      font-weight: 100;
+      font-size: 0.9em;
+      position: relative;
+      margin-bottom: 15px;
+    }
+      .inner p:nth-child(1)::after{
+        content: '';
+        background: white;
+        height: 1px;
+        width: 40px;
+        position: absolute;
+        bottom: -10px;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+      }
+
+    .inner p:nth-child(2){
+      color: white;
+      font-size: 1.5em;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+    .inner p:nth-child(3){
+      font-weight: lighter;
+      font-size: 0.8em;
+      margin-bottom: 12px;
+    }
+    .inner a{
+      display: table;
+      margin: 0 auto;
+      text-decoration: none;
+      color: white;
+
+      border: 1px white solid;
+      padding: 6px 15px;
+      border-radius: 25px;
+    }
+
+
+
+
+
+/*
+==============
+Today Page
+==============
+ */
+
+.more{
+  display: table;
+  margin-right: auto;
+  margin-left: 0;
+  margin-bottom: 15px;
+}
+
+.box.today{
+	margin-bottom: 0;
+	box-shadow: none;
+}
+
+.box-header.meetings{
+	background: #F68657;
+}
+.box-header.service{
+	background: #a5d296;
+}
+.box-header.lunch{
+	background: #6AAFE6;
+}
+
+/*
+===============
+Account Settings
+===============
+*/
+.account-row{
+  margin-bottom: 10px;
+  color: #666;
+}
+.keyvalue{
+  display: flex;
+  justify-content: space-between;
+}
+  .keyvalue p:nth-child(1){
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+  .keyvalue p:nth-child(2){
+    color: #ffa500;
+  }

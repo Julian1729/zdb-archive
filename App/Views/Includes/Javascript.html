@@ -1,0 +1,11 @@
+<script src="{{URI.ASSETS_URI}}/js/vendor/mustache-min.js"></script>
+<script src="{{URI.ASSETS_URI}}/js/formval-min.js"></script>
+<script src="{{URI.ASSETS_URI}}/js/app.js"></script>
+<script>
+  // convert URI constants to JS vars
+  var URI = {
+    {% for key, value in URI %}
+      "{{key}}" : "{{value}}",
+    {% endfor %}
+  };
+</script>

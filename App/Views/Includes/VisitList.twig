@@ -1,0 +1,6 @@
+{% import 'Includes/Macros.html' as macro %}
+{% for v in visits %}
+  <!-- build url -->
+  {% set url = "#{URI.ADMIN_URI}/visits/view/#{v.visitId}" %}
+  {{macro.adminVisit(url, v.name, v.startDate, v.endDate, true)}}
+{% endfor %}
